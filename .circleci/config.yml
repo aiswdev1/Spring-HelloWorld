@@ -112,9 +112,12 @@ jobs:
 
 workflows:
   version: 2
-  workflow:
+  build_test_deploy:
     jobs:
-    - build
-    - test:
-        requires:
-          - build
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
