@@ -1,0 +1,21 @@
+version: '3'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5005:5005
+      - 8080:8080
+    volumes:
+      - .:/app
+    command: ["gradle", "bootRun"]
+    depends_on:
+      - "db" 
+  db:
+    image: circleci/postgres:12-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: circle_test
+    ports:
+      - 5432:5432
