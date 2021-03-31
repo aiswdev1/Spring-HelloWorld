@@ -100,10 +100,10 @@ jobs:
       - run:
           name: Docker build and push
           command: |
-            docker build -t Spring-helloworld .
-            docker tag django-helloworld gcr.io/level-skyline-276507/Spring-helloworld:${CIRCLE_SHA1}
+            docker build -t spring-helloworld .
+            docker tag django-helloworld gcr.io/level-skyline-276507/spring-helloworld:${CIRCLE_SHA1}
             gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
-            docker push gcr.io/level-skyline-276507/Spring-helloworld:${CIRCLE_SHA1}
+            docker push gcr.io/level-skyline-276507/spring-helloworld:${CIRCLE_SHA1}
       - run:
           name: Deploy to Kubernetes
           command: |
