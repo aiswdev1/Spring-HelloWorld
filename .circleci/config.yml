@@ -82,6 +82,33 @@ jobs:
       # This will be empty for all nodes except the first one
       - store_artifacts:
           path: build/libs
+  deploy:
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - checkout
+      - run:
+          name: Setup Google Cloud SDK
+          command: |
+            apt-get install -qq -y gettext
+            echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project level-skyline-276507
+            gcloud --quiet config set compute/zone us-central1-c
+            gcloud --quiet container clusters get-credentials mylab
+      - setup_remote_docker
+      - run:
+          name: Docker build and push
+          command: |
+            docker build -t Spring-helloworld .
+            docker tag django-helloworld gcr.io/level-skyline-276507/Spring-helloworld:${CIRCLE_SHA1}
+            gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+            docker push gcr.io/level-skyline-276507/Spring-helloworld:${CIRCLE_SHA1}
+      - run:
+          name: Deploy to Kubernetes
+          command: |
+            envsubst < ${HOME}/project/k8s.yml > ${HOME}/k8s_with_env.yml
+            kubectl apply -f ${HOME}/k8s_with_env.yml
 
 workflows:
   version: 2

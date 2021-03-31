@@ -1,0 +1,36 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: Spring-helloworld
+spec:
+  selector:
+    app: Spring-helloworld
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Spring-helloworld
+  labels:
+    app: Spring-helloworld
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: Spring-helloworld
+  template:
+    metadata:
+      labels:
+        app: Spring-helloworld
+    spec:
+      containers:
+      - name: Spring-helloworld
+        image: gcr.io/level-skyline-276507/Spring-helloworld:${CIRCLE_SHA1}
+        ports:
+        - name: http
+          containerPort: 8000
+          protocol: TCP
