@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: Spring-helloworld
+  name: spring-helloworld
 spec:
   selector:
-    app: Spring-helloworld
+    app: spring-helloworld
   ports:
   - protocol: TCP
     port: 80
@@ -14,21 +14,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Spring-helloworld
+  name: spring-helloworld
   labels:
-    app: Spring-helloworld
+    app: spring-helloworld
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: Spring-helloworld
+      app: spring-helloworld
   template:
     metadata:
       labels:
-        app: Spring-helloworld
+        app: spring-helloworld
     spec:
       containers:
-      - name: Spring-helloworld
+      - name: spring-helloworld
         image: gcr.io/level-skyline-276507/spring-helloworld:${CIRCLE_SHA1}
         ports:
         - name: http
