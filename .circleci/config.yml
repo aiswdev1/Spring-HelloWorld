@@ -94,8 +94,8 @@ jobs:
             echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
             gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
             gcloud --quiet config set project civic-network-308208
-            gcloud --quiet config set compute/zone us-central1-c
-            gcloud --quiet container clusters get-credentials myzone
+            gcloud --quiet config set compute/zone us-central1-b
+            gcloud --quiet container clusters get-credentials circle-ci-cluster
       - setup_remote_docker
       - run:
           name: Docker build and push
