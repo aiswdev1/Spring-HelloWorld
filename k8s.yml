@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: spring-helloworld
-        image: gcr.io/level-skyline-276507/spring-helloworld:${CIRCLE_SHA1}
+        image: gcr.io/civic-network-308208/spring-helloworld:${CIRCLE_SHA1}
         ports:
         - name: http
           containerPort: 8000
