@@ -1,7 +1,7 @@
 // Based on the guide here: https://guides.gradle.org/building-spring-boot-2-projects-with-gradle/
 plugins {
     id 'java'
-    id 'com.gradle.build-scan' version '3.0'
+//    id 'com.gradle.build-scan' version '3.0'
     id 'org.springframework.boot' version '2.2.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 }
@@ -51,7 +51,7 @@ task bootRunDev(type: org.springframework.boot.gradle.tasks.run.BootRun) {
         systemProperty 'spring.profiles.active', 'local'
     }
 }
-
+/*
 buildScan {
     // always accept the terms of service
     termsOfServiceUrl = 'https://gradle.com/terms-of-service'
@@ -60,7 +60,7 @@ buildScan {
     // always publish a build scan
     publishAlways()
 }
-
+*/
 // Based on the guide here: https://github.com/codecov/example-gradle
 jacocoTestReport {
     reports {
