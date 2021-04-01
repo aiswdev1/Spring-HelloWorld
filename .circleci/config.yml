@@ -93,17 +93,17 @@ jobs:
             apt-get install -qq -y gettext
             echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
             gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-            gcloud --quiet config set project level-skyline-276507
+            gcloud --quiet config set project civic-network-308208
             gcloud --quiet config set compute/zone us-central1-c
-            gcloud --quiet container clusters get-credentials mylab
+            gcloud --quiet container clusters get-credentials myzone
       - setup_remote_docker
       - run:
           name: Docker build and push
           command: |
             docker build -t spring-helloworld .
-            docker tag spring-helloworld gcr.io/level-skyline-276507/spring-helloworld:${CIRCLE_SHA1}
+            docker tag spring-helloworld gcr.io/civic-network-308208/spring-helloworld:${CIRCLE_SHA1}
             gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
-            docker push gcr.io/level-skyline-276507/spring-helloworld:${CIRCLE_SHA1}
+            docker push gcr.io/civic-network-308208/spring-helloworld:${CIRCLE_SHA1}
       - run:
           name: Deploy to Kubernetes
           command: |
