@@ -14,13 +14,13 @@ services:
       - "db" 
   db:
     image: circleci/postgres:12-alpine
-    container_name: scrum-postgres
+    container_name: postgres
     volumes:
       - scrum-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: circle_test
+      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       
