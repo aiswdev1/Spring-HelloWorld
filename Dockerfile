@@ -1,4 +1,4 @@
-FROM circleci/openjdk:11.0.3-jdk-stretch
+FROM gradle:4.6-jdk8
 USER root
 WORKDIR /app
-EXPOSE 8000 8000
+EXPOSE 8080 5005
