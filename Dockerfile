@@ -1,4 +1,6 @@
-FROM gradle:4.6-jdk8
-USER root
-WORKDIR /app
-EXPOSE 8080 5005
+FROM openjdk:8-jdk-alpine
+EXPOSE 8080:8080
+ARG JAR_FILE=gradle\wrapper/gradle-wrapper.jar
+WORKDIR /opt/app
+ADD ${JAR_FILE} app.jar
+ENTRYPOINT ["gradle","bootrun",]
